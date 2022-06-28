@@ -14,18 +14,24 @@ public class MoveTransform : MonoBehaviour
 
     private void Update()
     {
-        if (!NetworkServer.active && !NetworkClient.isHostClient)
+        if (NetworkClient.active && NetworkClient.isConnected)
+            OnClient();
+
+        if (NetworkServer.active || NetworkClient.isHostClient)
+            OnServer();
+    }
+
+    private void OnClient()
+    {
+        if (Input.GetButtonDown("Jump"))
         {
-            if (NetworkClient.isConnected)
-                if (Input.GetButtonDown("Jump"))
-                {
-                    JumpLocally();
-                    NetworkClient.Send(new JumpCommand());
-                }
-
-            return;
+            JumpLocally();
+            NetworkClient.Send(new JumpCommand());
         }
+    }
 
+    private static void OnServer()
+    {
         var position = new Vector3(0, Mathf.Sin(Time.time), 0f);
         var moveTransformCommand = new MoveTransformCommand
         {
