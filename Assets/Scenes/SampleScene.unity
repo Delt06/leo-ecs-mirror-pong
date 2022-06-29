@@ -351,7 +351,7 @@ MonoBehaviour:
   DualMode: 1
   NoDelay: 1
   Interval: 10
-  Timeout: 10000
+  Timeout: 100000
   FastResend: 2
   CongestionWindow: 0
   SendWindowSize: 4096
@@ -433,6 +433,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 038e839801e14314ae0d8d6cbe2afb02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TickTime: 0.05
+  InterpolateTime: 0.1
+  SnapTime: 0.2
+  Extrapolate: 1
 --- !u!4 &1819713884
 Transform:
   m_ObjectHideFlags: 0
