@@ -10,7 +10,6 @@ namespace Simulation
     {
         private readonly EcsFilterInject<Inc<Cube>> _filter = default;
         private SimulationSharedData _simulationData;
-        private float _time;
 
         public void Init(EcsSystems systems)
         {
@@ -23,10 +22,9 @@ namespace Simulation
             foreach (var i in _filter)
             {
                 ref var cubeData = ref _filter.Pools.Inc1.Get(i);
-                cubeData.Position = new Vector3(0, Mathf.Sin(_time), 0f);
+                cubeData.Position = new Vector3(0, Mathf.Sin(cubeData.Time), 0f);
+                cubeData.Time += _simulationData.Dt;
             }
-
-            _time += _simulationData.Dt;
         }
     }
 }
