@@ -7,5 +7,6 @@ namespace Presentation
     public class PresentationConfig : ScriptableObject
     {
         public InterpolationSettings InterpolationSettings;
+        public Prefabs Prefabs;
     }
 }

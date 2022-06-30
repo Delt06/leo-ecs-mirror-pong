@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Presentation
 {
-    public struct CubeView
+    public struct PaddleView
     {
         public GameObject GameObject;
     }

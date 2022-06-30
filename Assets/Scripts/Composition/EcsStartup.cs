@@ -97,7 +97,9 @@ namespace Composition
         private EcsSystems CreatePresentationSystems()
         {
             var systems = new EcsSystems(PresentationWorld,
-                new PresentationSharedData(_presentationConfig.InterpolationSettings, SimulationWorld)
+                new PresentationSharedData(_presentationConfig.InterpolationSettings, _presentationConfig.Prefabs,
+                    SimulationWorld
+                )
             );
 #if UNITY_EDITOR
             systems.Add(new EcsWorldDebugSystem());
@@ -113,8 +115,7 @@ namespace Composition
             systems.Add(new ReceiveClientInputSystem());
 
             systems
-                .Add(new SineMovementSystem())
-                .Add(new JumpRotationSystem())
+                .Add(new MovementSystem())
                 ;
 
             systems
@@ -125,6 +126,7 @@ namespace Composition
 
             systems
                 .Add(new ConstructSimulationStateSystem())
+                .DelHere<OnPaddleDestroyed>()
                 ;
 
             systems
@@ -138,7 +140,7 @@ namespace Composition
             systems.Add(new ReceiveServerStateSystem());
 
             systems
-                .Add(new CubePresentationSystem())
+                .Add(new PaddlePresentationSystem())
                 .Add(new PositionInterpolationSystem())
                 .Add(new RotationInterpolationSystem())
                 ;
@@ -146,7 +148,7 @@ namespace Composition
             systems.DelHere<SimulationState>();
 
             systems
-                .Add(new JumpInputSystem())
+                .Add(new InputSystem())
                 ;
 
             systems

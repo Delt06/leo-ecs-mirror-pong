@@ -24,7 +24,7 @@ namespace Networking
                 ref readonly var clientInput = ref _filter.Pools.Inc1.Get(i);
 
                 if (NetworkClient.isHostClient)
-                    CreateClientInputEntity(_presentationData.SimulationWorld,
+                    TryCreateClientInputEntity(_presentationData.SimulationWorld,
                         NetworkClient.connection, clientInput
                     );
                 else

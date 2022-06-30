@@ -1,10 +1,20 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using Leopotam.EcsLite;
 
 namespace Simulation
 {
-    public struct SimulationState
+    public struct SimulationState : IEcsAutoReset<SimulationState>
     {
-        public Vector3 CubePosition;
-        public Quaternion CubeRotation;
+        public List<PaddleInfo> Paddles;
+        public List<uint> DestroyedPaddles;
+
+        public void AutoReset(ref SimulationState c)
+        {
+            c.Paddles ??= new List<PaddleInfo>();
+            c.Paddles.Clear();
+
+            c.DestroyedPaddles ??= new List<uint>();
+            c.DestroyedPaddles.Clear();
+        }
     }
 }

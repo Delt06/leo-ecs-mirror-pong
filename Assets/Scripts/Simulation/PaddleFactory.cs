@@ -1,7 +1,7 @@
-﻿using Leopotam.EcsLite;
-using Simulation;
+﻿using DELTation.LeoEcsExtensions.Utilities;
+using Leopotam.EcsLite;
 
-namespace Networking
+namespace Simulation
 {
     public class PaddleFactory
     {
@@ -23,8 +23,10 @@ namespace Networking
             foreach (var i in _world.Filter<Paddle>().Inc<OwnerId>().End())
             {
                 ref var ownerId = ref _world.GetPool<OwnerId>().Get(i);
-                if (ownerId.Id == id)
-                    _world.DelEntity(i);
+                if (ownerId.Id != id) continue;
+
+                _world.NewEntityWith<OnPaddleDestroyed>().OwnerId = ownerId.Id;
+                _world.DelEntity(i);
             }
         }
     }

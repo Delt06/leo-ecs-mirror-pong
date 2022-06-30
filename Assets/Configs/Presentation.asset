@@ -16,3 +16,5 @@ MonoBehaviour:
     InterpolateTime: 0.1
     SnapTime: 0.2
     Extrapolate: 1
+  Prefabs:
+    PaddlePrefab: {fileID: 8287499766414189555, guid: 299b4efbaeb314a438c5d45bb9d926b8, type: 3}

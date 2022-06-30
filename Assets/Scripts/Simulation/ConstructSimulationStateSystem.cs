@@ -7,16 +7,29 @@ namespace Simulation
 {
     public class ConstructSimulationStateSystem : EcsSystemBase, IEcsRunSystem
     {
-        private readonly EcsFilterInject<Inc<Cube>> _cubesFilter = default;
+        private readonly EcsFilterInject<Inc<OnPaddleDestroyed>> _paddleDestroyedFilter = default;
+        private readonly EcsFilterInject<Inc<Paddle, OwnerId>> _paddlesFilter = default;
 
         public void Run(EcsSystems systems)
         {
-            foreach (var i in _cubesFilter)
+            ref var simulationState = ref World.NewEntityWith<SimulationState>();
+
+            foreach (var i in _paddlesFilter)
             {
-                ref var cubeData = ref _cubesFilter.Pools.Inc1.Get(i);
-                ref var simulationState = ref World.NewEntityWith<SimulationState>();
-                simulationState.CubePosition = cubeData.Position;
-                simulationState.CubeRotation = cubeData.Rotation;
+                ref var paddle = ref _paddlesFilter.Pools.Inc1.Get(i);
+                var ownerId = _paddlesFilter.Pools.Inc2.Get(i);
+                var paddleInfo = new PaddleInfo
+                {
+                    Position = paddle.Position,
+                    OwnerId = ownerId.Id,
+                };
+                simulationState.Paddles.Add(paddleInfo);
+            }
+
+            foreach (var i in _paddleDestroyedFilter)
+            {
+                var onPaddleDestroyed = _paddleDestroyedFilter.Pools.Inc1.Get(i);
+                simulationState.DestroyedPaddles.Add(onPaddleDestroyed.OwnerId);
             }
         }
     }

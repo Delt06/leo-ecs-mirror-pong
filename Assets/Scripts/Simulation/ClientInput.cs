@@ -2,6 +2,6 @@
 {
     public struct ClientInput
     {
-        public bool Jump;
+        public float Motion;
     }
 }

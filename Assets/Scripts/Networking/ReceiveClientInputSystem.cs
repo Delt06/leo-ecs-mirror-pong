@@ -26,7 +26,7 @@ namespace Networking
             while (_inputs.Count > 0)
             {
                 var (connection, input) = _inputs.Dequeue();
-                CreateClientInputEntity(World, connection, input);
+                TryCreateClientInputEntity(World, connection, input);
             }
         }
 
