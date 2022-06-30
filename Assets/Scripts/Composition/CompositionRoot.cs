@@ -1,5 +1,6 @@
 ﻿using DELTation.DIFramework;
 using DELTation.DIFramework.Containers;
+using Mirror;
 using Presentation;
 using Simulation;
 using UnityEngine;
@@ -16,6 +17,7 @@ namespace Composition
             builder
                 .Register(_simulationConfig)
                 .Register(_presentationConfig)
+                .Register<MirrorNetworkingSetUp>()
                 .Register<EcsStartup>()
                 ;
         }
