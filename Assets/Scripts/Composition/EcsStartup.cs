@@ -120,6 +120,7 @@ namespace Composition
             systems
                 .Add(new ReceiveServerStateSystem())
                 .Add(new CubePresentationSystem())
+                .Add(new PositionInterpolationSystem())
                 .DelHere<SimulationState>()
                 ;
         }
