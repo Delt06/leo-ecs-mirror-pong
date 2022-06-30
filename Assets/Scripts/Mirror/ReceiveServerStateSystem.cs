@@ -17,7 +17,7 @@ namespace Mirror
 
         public void Init(EcsSystems systems)
         {
-            NetworkClient.RegisterHandler<ServerStateMessage>(HandleIncomingState, false);
+            NetworkClient.RegisterHandler<ServerStateMessage>(HandleIncomingMessage, false);
         }
 
         public void Run(EcsSystems systems)
@@ -27,10 +27,9 @@ namespace Mirror
             _states.Clear();
         }
 
-        private void HandleIncomingState(ServerStateMessage obj)
+        private void HandleIncomingMessage(ServerStateMessage message)
         {
-            _states.Push(obj.SimulationState);
-            World.NewEntityWith<SimulationState>() = obj.SimulationState;
+            _states.Push(message.SimulationState);
         }
     }
 }

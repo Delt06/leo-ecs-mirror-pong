@@ -14,7 +14,8 @@ namespace Simulation
         public void Init(EcsSystems systems)
         {
             _simulationData = systems.GetSimulationData();
-            World.NewEntityWith<Cube>();
+            ref var cube = ref World.NewEntityWith<Cube>();
+            cube.Rotation = Quaternion.identity;
         }
 
         public void Run(EcsSystems systems)

@@ -32,11 +32,13 @@ namespace Composition
             _simulationConfig = simulationConfig;
             _networkingSetUp = networkingSetUp;
 
-            World = new EcsWorld();
+            SimulationWorld = new EcsWorld();
             PresentationWorld = new EcsWorld();
         }
 
-        public EcsWorld PresentationWorld { get; }
+        private EcsWorld PresentationWorld { get; }
+
+        private EcsWorld SimulationWorld { get; }
 
         public void OnDestroy()
         {
@@ -44,11 +46,11 @@ namespace Composition
             _simulationSystems = null;
             _presentationSystems?.Destroy();
             _presentationSystems = null;
-            World.Destroy();
+            SimulationWorld.Destroy();
             PresentationWorld.Destroy();
         }
 
-        public EcsWorld World { get; }
+        EcsWorld IMainEcsWorld.World => PresentationWorld;
 
         public void OnUpdate()
         {
@@ -82,7 +84,7 @@ namespace Composition
         [NotNull]
         private SimulationEcsSystems CreateSimulationSystems()
         {
-            var systems = new EcsSystems(World, new SimulationSharedData(_simulationConfig.DeltaTime));
+            var systems = new EcsSystems(SimulationWorld, new SimulationSharedData(_simulationConfig.DeltaTime));
 #if UNITY_EDITOR
             systems.Add(new EcsWorldDebugSystem());
 #endif
@@ -95,7 +97,7 @@ namespace Composition
         private EcsSystems CreatePresentationSystems()
         {
             var systems = new EcsSystems(PresentationWorld,
-                new PresentationSharedData(_presentationConfig.InterpolationSettings)
+                new PresentationSharedData(_presentationConfig.InterpolationSettings, SimulationWorld)
             );
 #if UNITY_EDITOR
             systems.Add(new EcsWorldDebugSystem());
@@ -108,9 +110,20 @@ namespace Composition
 
         private void AddSimulationSystems(EcsSystems systems)
         {
+            systems.Add(new ReceiveClientInputSystem());
+
             systems
                 .Add(new SineMovementSystem())
+                .Add(new JumpRotationSystem())
+                ;
+
+            systems.DelHere<ClientInput>();
+
+            systems
                 .Add(new ConstructSimulationStateSystem())
+                ;
+
+            systems
                 .Add(new SendServerStateSystem())
                 .DelHere<SimulationState>()
                 ;
@@ -118,12 +131,23 @@ namespace Composition
 
         private void AddPresentationSystems(EcsSystems systems)
         {
+            systems.Add(new ReceiveServerStateSystem());
+
             systems
-                .Add(new ReceiveServerStateSystem())
                 .Add(new CubePresentationSystem())
                 .Add(new PositionInterpolationSystem())
                 .Add(new RotationInterpolationSystem())
-                .DelHere<SimulationState>()
+                ;
+
+            systems.DelHere<SimulationState>();
+
+            systems
+                .Add(new JumpInputSystem())
+                ;
+
+            systems
+                .Add(new SendClientInputSystem())
+                .DelHere<ClientInput>()
                 ;
         }
     }
