@@ -1,5 +1,40 @@
 {
   "dependencies": {
+    "com.deltation.di-framework": {
+      "version": "https://github.com/Delt06/di-framework.git?path=Packages/com.deltation.di-framework",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "fca71b895c71fa4f414127c780b987e045fc1d86"
+    },
+    "com.deltation.leo-ecs-extensions": {
+      "version": "https://github.com/Delt06/leo-ecs-extensions.git?path=Packages/com.deltation.leo-ecs-extensions",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "ed43f5568e1a59e38a048032fa95fe1404e37be9"
+    },
+    "com.leoecscommunity.ecslite": {
+      "version": "https://github.com/LeoECSCommunity/ecslite.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "50426caebffc4aec7a6a9c71b9c9bdd579aa45a1"
+    },
+    "com.leoecscommunity.ecslite.di": {
+      "version": "https://github.com/LeoECSCommunity/ecslite-di.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "e70e4f982cb324204f80a60516a4a7dda5620aa3"
+    },
+    "com.leoecscommunity.ecslite.unityeditor": {
+      "version": "https://github.com/LeoECSCommunity/ecslite-unityeditor.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "2a8af59a6e15ecbd34783d32dbb37059e663e7f6"
+    },
     "com.unity.collab-proxy": {
       "version": "1.15.15",
       "depth": 0,
@@ -135,16 +170,6 @@
         "com.unity.modules.ui": "1.0.0",
         "com.unity.modules.imgui": "1.0.0"
       }
-    },
-    "com.unity.visualscripting": {
-      "version": "1.7.6",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.ugui": "1.0.0",
-        "com.unity.modules.jsonserialize": "1.0.0"
-      },
-      "url": "https://packages.unity.com"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",
