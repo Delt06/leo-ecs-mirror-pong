@@ -1,9 +1,11 @@
 ﻿using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
+using Mirror;
 using Presentation;
 using Simulation;
+using static Networking.ClientInputUtils;
 
-namespace Mirror
+namespace Networking
 {
     public class SendClientInputSystem : IEcsRunSystem, IEcsInitSystem
     {
@@ -22,7 +24,9 @@ namespace Mirror
                 ref readonly var clientInput = ref _filter.Pools.Inc1.Get(i);
 
                 if (NetworkClient.isHostClient)
-                    _presentationData.SendClientInputLocally(clientInput);
+                    CreateClientInputEntity(_presentationData.SimulationWorld,
+                        NetworkClient.connection, clientInput
+                    );
                 else
                     NetworkClient.Send(new ClientInputMessage
                         {

@@ -1,6 +1,7 @@
-﻿using Simulation;
+﻿using Mirror;
+using Simulation;
 
-namespace Mirror
+namespace Networking
 {
     public struct ClientInputMessage : NetworkMessage
     {

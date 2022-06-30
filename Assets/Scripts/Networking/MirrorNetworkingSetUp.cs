@@ -1,6 +1,7 @@
 ﻿using Composition;
+using Mirror;
 
-namespace Mirror
+namespace Networking
 {
     public class MirrorNetworkingSetUp : INetworkingSetUp
     {

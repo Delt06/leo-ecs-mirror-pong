@@ -1,6 +1,6 @@
 ﻿using DELTation.DIFramework;
 using DELTation.DIFramework.Containers;
-using Mirror;
+using Networking;
 using Presentation;
 using Simulation;
 using UnityEngine;
@@ -19,6 +19,11 @@ namespace Composition
                 .Register(_presentationConfig)
                 .Register<MirrorNetworkingSetUp>()
                 .Register<EcsStartup>()
+                .RegisterFromMethod((EcsStartup startup) => startup.SimulationWorld)
+                ;
+
+            builder
+                .Register<PaddleFactory>()
                 ;
         }
     }

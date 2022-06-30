@@ -1,8 +1,9 @@
 ﻿using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
+using Mirror;
 using Simulation;
 
-namespace Mirror
+namespace Networking
 {
     public class SendServerStateSystem : IEcsRunSystem
     {

@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
 using DELTation.LeoEcsExtensions.Systems.Run;
-using DELTation.LeoEcsExtensions.Utilities;
 using Leopotam.EcsLite;
+using Mirror;
 using Simulation;
+using static Networking.ClientInputUtils;
 
-namespace Mirror
+namespace Networking
 {
     public class ReceiveClientInputSystem : EcsSystemBase, IEcsRunSystem, IEcsInitSystem, IEcsDestroySystem
     {
-        private readonly Queue<ClientInput> _inputs = new();
+        private readonly Queue<(NetworkConnectionToClient connection, ClientInput input)> _inputs = new();
 
         public void Destroy(EcsSystems systems)
         {
@@ -24,14 +25,14 @@ namespace Mirror
         {
             while (_inputs.Count > 0)
             {
-                var input = _inputs.Dequeue();
-                World.NewEntityWith<ClientInput>() = input;
+                var (connection, input) = _inputs.Dequeue();
+                CreateClientInputEntity(World, connection, input);
             }
         }
 
         private void HandleIncomingMessage(NetworkConnectionToClient connection, ClientInputMessage message)
         {
-            _inputs.Enqueue(message.ClientInput);
+            _inputs.Enqueue((connection, message.ClientInput));
         }
     }
 }

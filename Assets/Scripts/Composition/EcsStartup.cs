@@ -4,7 +4,7 @@ using JetBrains.Annotations;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using Leopotam.EcsLite.ExtendedSystems;
-using Mirror;
+using Networking;
 using Presentation;
 using Presentation.Interpolation;
 using Simulation;
@@ -38,7 +38,7 @@ namespace Composition
 
         private EcsWorld PresentationWorld { get; }
 
-        private EcsWorld SimulationWorld { get; }
+        public EcsWorld SimulationWorld { get; }
 
         public void OnDestroy()
         {
@@ -117,7 +117,11 @@ namespace Composition
                 .Add(new JumpRotationSystem())
                 ;
 
-            systems.DelHere<ClientInput>();
+            systems
+                .DelHere<ClientInput>()
+                .DelHere<InputClientId>()
+                ;
+
 
             systems
                 .Add(new ConstructSimulationStateSystem())

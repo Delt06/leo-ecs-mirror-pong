@@ -2,9 +2,10 @@
 using DELTation.LeoEcsExtensions.Systems.Run;
 using DELTation.LeoEcsExtensions.Utilities;
 using Leopotam.EcsLite;
+using Mirror;
 using Simulation;
 
-namespace Mirror
+namespace Networking
 {
     public class ReceiveServerStateSystem : EcsSystemBase, IEcsRunSystem, IEcsInitSystem, IEcsDestroySystem
     {
