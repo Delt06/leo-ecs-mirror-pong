@@ -6,6 +6,7 @@ using Leopotam.EcsLite.Di;
 using Leopotam.EcsLite.ExtendedSystems;
 using Mirror;
 using Presentation;
+using Presentation.Interpolation;
 using Simulation;
 using UnityEngine;
 #if UNITY_EDITOR
@@ -121,6 +122,7 @@ namespace Composition
                 .Add(new ReceiveServerStateSystem())
                 .Add(new CubePresentationSystem())
                 .Add(new PositionInterpolationSystem())
+                .Add(new RotationInterpolationSystem())
                 .DelHere<SimulationState>()
                 ;
         }

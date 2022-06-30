@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Presentation
+namespace Presentation.Interpolation
 {
     [Serializable]
     public struct InterpolationSettings

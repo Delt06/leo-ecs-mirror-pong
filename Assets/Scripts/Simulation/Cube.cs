@@ -6,5 +6,6 @@ namespace Simulation
     {
         public Vector3 Position;
         public float Time;
+        public Quaternion Rotation;
     }
 }

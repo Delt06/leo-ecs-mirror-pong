@@ -16,6 +16,7 @@ namespace Simulation
                 ref var cubeData = ref _cubesFilter.Pools.Inc1.Get(i);
                 ref var simulationState = ref World.NewEntityWith<SimulationState>();
                 simulationState.CubePosition = cubeData.Position;
+                simulationState.CubeRotation = cubeData.Rotation;
             }
         }
     }

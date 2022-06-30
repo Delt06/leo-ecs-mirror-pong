@@ -1,4 +1,6 @@
-﻿namespace Presentation
+﻿using Presentation.Interpolation;
+
+namespace Presentation
 {
     public class PresentationSharedData
     {

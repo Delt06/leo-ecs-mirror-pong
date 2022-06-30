@@ -2,7 +2,7 @@
 using Leopotam.EcsLite.Di;
 using UnityEngine;
 
-namespace Presentation
+namespace Presentation.Interpolation
 {
     public class PositionInterpolationSystem : IEcsRunSystem, IEcsInitSystem
     {
@@ -22,20 +22,11 @@ namespace Presentation
                 interpolatedPosition.TimeSinceLastFrame += Time.deltaTime;
                 var transform = _filter.Pools.Inc1.Get(i).Transform;
                 transform.position =
-                    Interpolate(transform.position, interpolatedPosition.TargetPosition,
+                    _interpolationSettings.InterpolatePosition(transform.position,
+                        interpolatedPosition.TargetPosition,
                         interpolatedPosition.TimeSinceLastFrame
                     );
             }
-        }
-
-        private Vector3 Interpolate(Vector3 current, Vector3 target, float timeSinceLastFrame)
-        {
-            if (timeSinceLastFrame > _interpolationSettings.SnapTime)
-                return target;
-            var t = timeSinceLastFrame / _interpolationSettings.InterpolateTime;
-            return _interpolationSettings.Extrapolate
-                ? Vector3.LerpUnclamped(current, target, t)
-                : Vector3.Lerp(current, target, t);
         }
     }
 }
