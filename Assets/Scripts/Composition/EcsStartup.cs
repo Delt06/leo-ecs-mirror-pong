@@ -52,8 +52,6 @@ namespace Composition
         public void OnUpdate()
         {
             TryStart();
-
-
             TryRun();
         }
 
