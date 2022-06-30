@@ -10,7 +10,7 @@ namespace Presentation
     {
         public void Run(EcsSystems systems)
         {
-            var movement = Input.GetAxis("Vertical");
+            var movement = Input.GetAxisRaw("Vertical");
             if (!Mathf.Approximately(movement, 0))
                 World.NewEntityWith<ClientInput>().Motion = movement * Time.unscaledDeltaTime;
         }

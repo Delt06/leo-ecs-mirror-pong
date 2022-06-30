@@ -13,7 +13,7 @@ namespace Simulation
         {
             var entity = _world.NewEntity();
             ref var paddle = ref _world.GetPool<Paddle>().Add(entity);
-            paddle.Speed = 1f;
+            paddle.Speed = 5f;
             paddle.Position.x = 5f * GetNewPaddleSide();
             ref var ownerId = ref _world.GetPool<OwnerId>().Add(entity);
             ownerId.Id = id;
