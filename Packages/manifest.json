@@ -1,5 +1,6 @@
 {
     "dependencies": {
+        "com.leoecscommunity.ecslite.extendedsystems": "https://github.com/LeoECSCommunity/ecslite-extendedsystems.git",
         "com.leoecscommunity.ecslite": "https://github.com/LeoECSCommunity/ecslite.git",
         "com.leoecscommunity.ecslite.unityeditor": "https://github.com/LeoECSCommunity/ecslite-unityeditor.git",
         "com.leoecscommunity.ecslite.di": "https://github.com/LeoECSCommunity/ecslite-di.git",

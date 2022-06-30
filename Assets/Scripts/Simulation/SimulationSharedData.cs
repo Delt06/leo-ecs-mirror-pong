@@ -2,8 +2,8 @@
 {
     public class SimulationSharedData
     {
-        public readonly float DeltaTime;
+        public readonly float Dt;
 
-        public SimulationSharedData(float deltaTime) => DeltaTime = deltaTime;
+        public SimulationSharedData(float dt) => Dt = dt;
     }
 }

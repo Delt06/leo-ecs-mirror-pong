@@ -24,7 +24,7 @@ namespace Composition
             _timeSinceLastRun += dt;
             while (_timeSinceLastRun >= dt)
             {
-                _timeSinceLastRun -= _sharedData.DeltaTime;
+                _timeSinceLastRun -= _sharedData.Dt;
                 _systems.Run();
             }
         }
