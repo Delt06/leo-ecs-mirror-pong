@@ -1,5 +1,6 @@
 ﻿using Mirror;
 using Simulation;
+using Simulation.Paddles;
 using UnityEngine;
 using UnityEngine.Scripting;
 
@@ -7,25 +8,25 @@ namespace Networking
 {
     public class ProjectNetworkManager : NetworkManager
     {
-        private PaddleFactory _paddleFactory;
+        private PaddleEntityFactory _paddleEntityFactory;
 
         [Preserve]
-        public void Construct(PaddleFactory paddleFactory)
+        public void Construct(PaddleEntityFactory paddleEntityFactory)
         {
-            _paddleFactory = paddleFactory;
+            _paddleEntityFactory = paddleEntityFactory;
         }
 
         public override void OnServerAddPlayer(NetworkConnectionToClient conn)
         {
             base.OnServerAddPlayer(conn);
             Debug.Log("Welcome, " + conn.identity);
-            _paddleFactory.CreatePaddle(conn.identity.netId);
+            _paddleEntityFactory.CreatePaddle(conn.identity.netId);
         }
 
         public override void OnServerDisconnect(NetworkConnectionToClient conn)
         {
             Debug.Log("Bye, " + conn.identity);
-            _paddleFactory.TryDestroyPaddle(conn.identity.netId);
+            _paddleEntityFactory.TryDestroyPaddle(conn.identity.netId);
             base.OnServerDisconnect(conn);
         }
     }

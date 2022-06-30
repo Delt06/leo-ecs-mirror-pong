@@ -7,7 +7,9 @@ using Leopotam.EcsLite.ExtendedSystems;
 using Networking;
 using Presentation;
 using Presentation.Interpolation;
+using Presentation.Paddles;
 using Simulation;
+using Simulation.Paddles;
 using UnityEngine;
 #if UNITY_EDITOR
 using Leopotam.EcsLite.UnityEditor;

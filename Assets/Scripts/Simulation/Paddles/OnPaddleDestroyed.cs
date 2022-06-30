@@ -1,4 +1,4 @@
-﻿namespace Simulation
+﻿namespace Simulation.Paddles
 {
     public struct OnPaddleDestroyed
     {

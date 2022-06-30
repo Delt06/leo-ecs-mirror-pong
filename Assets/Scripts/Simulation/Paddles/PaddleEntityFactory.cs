@@ -1,13 +1,13 @@
 ﻿using DELTation.LeoEcsExtensions.Utilities;
 using Leopotam.EcsLite;
 
-namespace Simulation
+namespace Simulation.Paddles
 {
-    public class PaddleFactory
+    public class PaddleEntityFactory
     {
         private readonly EcsWorld _world;
 
-        public PaddleFactory(EcsWorld world) => _world = world;
+        public PaddleEntityFactory(EcsWorld world) => _world = world;
 
         public void CreatePaddle(uint id)
         {

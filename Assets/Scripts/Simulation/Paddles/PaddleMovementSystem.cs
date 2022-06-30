@@ -2,7 +2,7 @@
 using Leopotam.EcsLite.Di;
 using Networking;
 
-namespace Simulation
+namespace Simulation.Paddles
 {
     public class MovementSystem : IEcsRunSystem
     {

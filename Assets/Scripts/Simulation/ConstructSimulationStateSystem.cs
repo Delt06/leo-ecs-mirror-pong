@@ -2,6 +2,7 @@
 using DELTation.LeoEcsExtensions.Utilities;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
+using Simulation.Paddles;
 
 namespace Simulation
 {

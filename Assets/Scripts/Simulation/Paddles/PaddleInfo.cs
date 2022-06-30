@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Simulation
+namespace Simulation.Paddles
 {
     public struct PaddleInfo
     {

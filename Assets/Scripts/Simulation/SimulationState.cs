@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Leopotam.EcsLite;
+using Simulation.Paddles;
 
 namespace Simulation
 {

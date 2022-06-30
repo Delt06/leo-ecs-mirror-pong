@@ -6,7 +6,7 @@ using Presentation.Interpolation;
 using Simulation;
 using UnityEngine;
 
-namespace Presentation
+namespace Presentation.Paddles
 {
     public class PaddlePresentationSystem : EcsSystemBase, IEcsRunSystem, IEcsInitSystem
     {
