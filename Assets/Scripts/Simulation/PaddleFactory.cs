@@ -14,8 +14,22 @@ namespace Simulation
             var entity = _world.NewEntity();
             ref var paddle = ref _world.GetPool<Paddle>().Add(entity);
             paddle.Speed = 1f;
+            paddle.Position.x = 5f * GetNewPaddleSide();
             ref var ownerId = ref _world.GetPool<OwnerId>().Add(entity);
             ownerId.Id = id;
+        }
+
+        private float GetNewPaddleSide()
+        {
+            foreach (var i in _world.Filter<Paddle>().End())
+            {
+                var paddle = _world.GetPool<Paddle>().Get(i);
+                if (paddle.Position.x > 0)
+                    return -1f;
+                return 1f;
+            }
+
+            return -1f;
         }
 
         public void TryDestroyPaddle(uint id)
