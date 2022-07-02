@@ -7,5 +7,6 @@ namespace Presentation
     public struct Prefabs
     {
         public GameObject PaddlePrefab;
+        public GameObject BallPrefab;
     }
 }

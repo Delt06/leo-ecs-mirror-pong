@@ -3,6 +3,7 @@ using DELTation.DIFramework.Containers;
 using Networking;
 using Presentation;
 using Simulation;
+using Simulation.Ball;
 using Simulation.Paddles;
 using UnityEngine;
 
@@ -25,6 +26,7 @@ namespace Composition
 
             builder
                 .Register<PaddleEntityFactory>()
+                .Register<BallEntityFactory>()
                 ;
         }
     }

@@ -1,13 +1,14 @@
 ﻿using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using Networking;
+using Simulation.Physics;
 
 namespace Simulation.Paddles
 {
-    public class MovementSystem : IEcsRunSystem
+    public class PaddleMovementSystem : IEcsRunSystem
     {
         private readonly EcsFilterInject<Inc<ClientInput, InputClientId>> _inputFilter = default;
-        private readonly EcsFilterInject<Inc<Paddle, OwnerId>> _paddleFilter = default;
+        private readonly EcsFilterInject<Inc<Paddle, Position, OwnerId>> _paddleFilter = default;
 
         public void Run(EcsSystems systems)
         {
@@ -18,12 +19,13 @@ namespace Simulation.Paddles
 
                 foreach (var iPaddle in _paddleFilter)
                 {
-                    var ownerId = _paddleFilter.Pools.Inc2.Get(iPaddle);
+                    var ownerId = _paddleFilter.Pools.Inc3.Get(iPaddle);
                     if (ownerId.Id != inputClientId.Id) continue;
 
                     ref var paddle = ref _paddleFilter.Pools.Inc1.Get(iPaddle);
+                    ref var position = ref _paddleFilter.Pools.Inc2.Get(iPaddle);
                     var motion = clientInput.Motion * paddle.Speed;
-                    paddle.Position.y += motion;
+                    position.Value.y += motion;
                 }
             }
         }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Leopotam.EcsLite;
+using Simulation.Ball;
 using Simulation.Paddles;
 
 namespace Simulation
@@ -8,6 +9,7 @@ namespace Simulation
     {
         public List<PaddleInfo> Paddles;
         public List<uint> DestroyedPaddles;
+        public BallInfo BallInfo;
 
         public void AutoReset(ref SimulationState c)
         {
@@ -16,6 +18,8 @@ namespace Simulation
 
             c.DestroyedPaddles ??= new List<uint>();
             c.DestroyedPaddles.Clear();
+
+            c.BallInfo = default;
         }
     }
 }
