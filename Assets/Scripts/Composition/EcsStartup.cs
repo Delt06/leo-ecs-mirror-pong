@@ -122,6 +122,7 @@ namespace Composition
             systems
                 .Add(new PaddleMovementSystem())
                 .Add(new VelocitySystem())
+                .Add(new BallWallBounceSystem())
                 ;
 
             systems
