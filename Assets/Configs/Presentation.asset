@@ -17,5 +17,5 @@ MonoBehaviour:
     SnapTime: 0.2
     Extrapolate: 1
   Prefabs:
-    PaddlePrefab: {fileID: 8287499766414189555, guid: 299b4efbaeb314a438c5d45bb9d926b8, type: 3}
-    BallPrefab: {fileID: 8287499766414189555, guid: fabdf10f5ad560248a416fab342ecfd8, type: 3}
+    PaddlePrefab: {fileID: 2384037497356063463, guid: 299b4efbaeb314a438c5d45bb9d926b8, type: 3}
+    BallPrefab: {fileID: -5546425954247502461, guid: fabdf10f5ad560248a416fab342ecfd8, type: 3}

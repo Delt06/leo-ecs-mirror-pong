@@ -6,11 +6,10 @@ using Leopotam.EcsLite.Di;
 using Leopotam.EcsLite.ExtendedSystems;
 using Networking;
 using Presentation;
-using Presentation.Ball;
 using Presentation.Interpolation;
-using Presentation.Paddles;
 using Simulation;
 using Simulation.Ball;
+using Simulation.Ids;
 using Simulation.Paddles;
 using Simulation.Physics;
 using UnityEngine;
@@ -133,8 +132,7 @@ namespace Composition
 
             systems
                 .Add(new ConstructSimulationStateSystem())
-                .DelHere<OnPaddleDestroyed>()
-                .DelHere<OnBallDestroyed>()
+                .DelHere<OnSyncedEntityDestroyed>()
                 ;
 
             systems
@@ -148,8 +146,8 @@ namespace Composition
             systems.Add(new ReceiveServerStateSystem());
 
             systems
-                .Add(new PaddlePresentationSystem())
-                .Add(new BallPresentationSystem())
+                .Add(new EntityViewPresentationSystem())
+                .Add(new PositionPresentationSystem())
                 .Add(new PositionInterpolationSystem())
                 .Add(new RotationInterpolationSystem())
                 ;

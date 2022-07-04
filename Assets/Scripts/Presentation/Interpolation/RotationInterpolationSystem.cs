@@ -1,4 +1,5 @@
-﻿using Leopotam.EcsLite;
+﻿using DELTation.LeoEcsExtensions.Components;
+using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using UnityEngine;
 
@@ -6,7 +7,7 @@ namespace Presentation.Interpolation
 {
     public class RotationInterpolationSystem : IEcsRunSystem, IEcsInitSystem
     {
-        private readonly EcsFilterInject<Inc<TransformRef, InterpolatedRotation>> _filter = default;
+        private readonly EcsFilterInject<Inc<UnityRef<Transform>, InterpolatedRotation>> _filter = default;
         private InterpolationSettings _interpolationSettings;
 
         public void Init(EcsSystems systems)
@@ -19,8 +20,10 @@ namespace Presentation.Interpolation
             foreach (var i in _filter)
             {
                 ref var interpolatedRotation = ref _filter.Pools.Inc2.Get(i);
+                if (!interpolatedRotation.IsValid) continue;
+
                 interpolatedRotation.TimeSinceLastFrame += Time.deltaTime;
-                var transform = _filter.Pools.Inc1.Get(i).Transform;
+                var transform = _filter.Pools.Inc1.Get(i).Object;
                 transform.rotation =
                     _interpolationSettings.InterpolateRotation(transform.rotation,
                         interpolatedRotation.TargetRotation,

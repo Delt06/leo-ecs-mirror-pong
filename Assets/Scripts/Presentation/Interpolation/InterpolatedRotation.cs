@@ -6,5 +6,6 @@ namespace Presentation.Interpolation
     {
         public Quaternion TargetRotation;
         public float TimeSinceLastFrame;
+        public bool IsValid;
     }
 }

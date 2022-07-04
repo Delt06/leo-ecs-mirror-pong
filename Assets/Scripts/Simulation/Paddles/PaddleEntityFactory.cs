@@ -1,5 +1,6 @@
 ﻿using DELTation.LeoEcsExtensions.Utilities;
 using Leopotam.EcsLite;
+using Simulation.Ids;
 using Simulation.Physics;
 
 namespace Simulation.Paddles
@@ -26,6 +27,8 @@ namespace Simulation.Paddles
                 .Value.x = 5f * GetNewPaddleSide();
             ref var ownerId = ref _world.GetPool<OwnerId>().Add(entity);
             ownerId.Id = id;
+            _world.AddEntityId(entity);
+            _world.GetPool<ViewInfo>().Add(entity).Type = ViewType.Paddle;
         }
 
         private float GetNewPaddleSide()
@@ -43,12 +46,14 @@ namespace Simulation.Paddles
 
         public void TryDestroyPaddle(uint id)
         {
-            foreach (var i in _world.Filter<Paddle>().Inc<OwnerId>().End())
+            foreach (var i in _world.Filter<Paddle>().Inc<OwnerId>().Inc<SyncedEntityId>().End())
             {
                 ref var ownerId = ref _world.GetPool<OwnerId>().Get(i);
                 if (ownerId.Id != id) continue;
 
-                _world.NewEntityWith<OnPaddleDestroyed>().OwnerId = ownerId.Id;
+                var entityId = _world.GetPool<SyncedEntityId>().Get(i);
+
+                _world.NewEntityWith<OnSyncedEntityDestroyed>().Id = entityId;
                 _world.DelEntity(i);
             }
         }

@@ -2,52 +2,39 @@
 using DELTation.LeoEcsExtensions.Utilities;
 using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
-using Simulation.Ball;
-using Simulation.Paddles;
+using Simulation.Ids;
 using Simulation.Physics;
 
 namespace Simulation
 {
     public class ConstructSimulationStateSystem : EcsSystemBase, IEcsRunSystem
     {
-        private readonly EcsFilterInject<Inc<OnBallDestroyed>> _ballDestroyedFilter = default;
-        private readonly EcsFilterInject<Inc<Ball.Ball, Position>> _ballFilter = default;
-        private readonly EcsFilterInject<Inc<OnPaddleDestroyed>> _paddleDestroyedFilter = default;
-        private readonly EcsFilterInject<Inc<Paddle, Position, OwnerId>> _paddlesFilter = default;
+        private readonly EcsFilterInject<Inc<OnSyncedEntityDestroyed>> _onSyncedEntityDestroyedFilter = default;
+        private readonly EcsFilterInject<Inc<SyncedEntityId, Position>> _positionFilter = default;
+        private readonly EcsFilterInject<Inc<SyncedEntityId, ViewInfo>> _viewFilter = default;
 
         public void Run(EcsSystems systems)
         {
             ref var simulationState = ref World.NewEntityWith<SimulationState>();
 
-            foreach (var i in _paddlesFilter)
+            foreach (var i in _onSyncedEntityDestroyedFilter)
             {
-                ref var position = ref _paddlesFilter.Pools.Inc2.Get(i);
-                var ownerId = _paddlesFilter.Pools.Inc3.Get(i);
-                var paddleInfo = new PaddleInfo
-                {
-                    Position = position.Value,
-                    OwnerId = ownerId.Id,
-                };
-                simulationState.Paddles.Add(paddleInfo);
+                var syncedEntityId = _onSyncedEntityDestroyedFilter.Pools.Inc1.Get(i).Id;
+                simulationState.DestroyedEntities.Add(syncedEntityId);
             }
 
-            foreach (var i in _paddleDestroyedFilter)
+            foreach (var i in _positionFilter)
             {
-                var onPaddleDestroyed = _paddleDestroyedFilter.Pools.Inc1.Get(i);
-                simulationState.DestroyedPaddles.Add(onPaddleDestroyed.OwnerId);
+                var id = _positionFilter.Pools.Inc1.Get(i);
+                var position = _positionFilter.Pools.Inc2.Get(i).Value;
+                simulationState.Positions.Add(new EntityPosition(id, position));
             }
 
-            foreach (var _ in _ballDestroyedFilter)
+            foreach (var i in _viewFilter)
             {
-                simulationState.BallInfo.HasDestroyed = true;
-                break;
-            }
-
-            foreach (var i in _ballFilter)
-            {
-                ref var position = ref _ballFilter.Pools.Inc2.Get(i);
-                simulationState.BallInfo.Position = position.Value;
-                break;
+                var id = _viewFilter.Pools.Inc1.Get(i);
+                var viewInfo = _viewFilter.Pools.Inc2.Get(i);
+                simulationState.ViewIds.Add(new EntityViewInfo(id, viewInfo));
             }
         }
     }

@@ -6,5 +6,6 @@ namespace Presentation.Interpolation
     {
         public Vector3 TargetPosition;
         public float TimeSinceLastFrame;
+        public bool IsValid;
     }
 }
