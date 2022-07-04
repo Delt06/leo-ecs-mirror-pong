@@ -27,6 +27,7 @@ namespace Composition
             builder
                 .Register<PaddleEntityFactory>()
                 .Register<BallEntityFactory>()
+                .RegisterFromMethod((EcsStartup startup) => startup.PhysicsObjectsFactory)
                 ;
         }
     }

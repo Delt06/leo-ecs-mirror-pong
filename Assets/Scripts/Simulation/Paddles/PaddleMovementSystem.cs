@@ -1,14 +1,14 @@
 ﻿using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using Networking;
-using Simulation.Physics;
+using Simulation.Physics.Components.Physics.Shapes;
 
 namespace Simulation.Paddles
 {
     public class PaddleMovementSystem : IEcsRunSystem
     {
         private readonly EcsFilterInject<Inc<ClientInput, InputClientId>> _inputFilter = default;
-        private readonly EcsFilterInject<Inc<Paddle, Position, OwnerId>> _paddleFilter = default;
+        private readonly EcsFilterInject<Inc<Paddle, Segment, OwnerId>> _paddleFilter = default;
 
         public void Run(EcsSystems systems)
         {
@@ -25,7 +25,8 @@ namespace Simulation.Paddles
                     ref var paddle = ref _paddleFilter.Pools.Inc1.Get(iPaddle);
                     ref var position = ref _paddleFilter.Pools.Inc2.Get(iPaddle);
                     var motion = clientInput.Motion * paddle.Speed;
-                    position.Value.y += motion;
+                    position.A.Y += motion;
+                    position.B.Y += motion;
                 }
             }
         }

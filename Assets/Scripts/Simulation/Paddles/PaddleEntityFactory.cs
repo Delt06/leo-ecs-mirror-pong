@@ -1,18 +1,22 @@
-﻿using DELTation.LeoEcsExtensions.Utilities;
+﻿using System.Numerics;
+using DELTation.LeoEcsExtensions.Utilities;
 using Leopotam.EcsLite;
 using Simulation.Ids;
-using Simulation.Physics;
+using Simulation.Physics.Components.Physics.Shapes;
+using Simulation.Physics.Services;
 
 namespace Simulation.Paddles
 {
     public class PaddleEntityFactory
     {
         private readonly EcsFilter _paddlesFilter;
+        private readonly PhysicsObjectsFactory _physicsObjectsFactory;
         private readonly EcsWorld _world;
 
-        public PaddleEntityFactory(EcsWorld world)
+        public PaddleEntityFactory(EcsWorld world, PhysicsObjectsFactory physicsObjectsFactory)
         {
             _world = world;
+            _physicsObjectsFactory = physicsObjectsFactory;
             _paddlesFilter = _world.Filter<Paddle>().End();
         }
 
@@ -23,8 +27,10 @@ namespace Simulation.Paddles
             var entity = _world.NewEntity();
             ref var paddle = ref _world.GetPool<Paddle>().Add(entity);
             paddle.Speed = 5f;
-            _world.GetPool<Position>().Add(entity)
-                .Value.x = 5f * GetNewPaddleSide();
+            var x = 5f * GetNewPaddleSide();
+            var a = new Vector2(x, -5f);
+            var b = new Vector2(x, 5f);
+            _physicsObjectsFactory.CreateSegment(a, b, 1f, entity);
             ref var ownerId = ref _world.GetPool<OwnerId>().Add(entity);
             ownerId.Id = id;
             _world.AddEntityId(entity);
@@ -33,10 +39,10 @@ namespace Simulation.Paddles
 
         private float GetNewPaddleSide()
         {
-            foreach (var i in _world.Filter<Paddle>().Inc<Position>().End())
+            foreach (var i in _world.Filter<Paddle>().Inc<Segment>().End())
             {
-                var position = _world.GetPool<Position>().Get(i);
-                if (position.Value.x > 0)
+                var position = _world.GetPool<Segment>().Get(i);
+                if (position.A.X > 0)
                     return -1f;
                 return 1f;
             }
