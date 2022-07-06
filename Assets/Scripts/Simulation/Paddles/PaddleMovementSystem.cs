@@ -1,7 +1,8 @@
 ﻿using Leopotam.EcsLite;
 using Leopotam.EcsLite.Di;
 using Networking;
-using Simulation.Physics.Components.Physics;
+using UnityEngine;
+using Pose = Simulation.Physics.Components.Physics.Pose;
 
 namespace Simulation.Paddles
 {
@@ -26,6 +27,7 @@ namespace Simulation.Paddles
                     ref var position = ref _paddleFilter.Pools.Inc2.Get(iPaddle);
                     var motion = clientInput.Motion * paddle.Speed;
                     position.Position.Y += motion;
+                    position.Position.Y = Mathf.Clamp(position.Position.Y, -paddle.YLimit, paddle.YLimit);
                 }
             }
         }

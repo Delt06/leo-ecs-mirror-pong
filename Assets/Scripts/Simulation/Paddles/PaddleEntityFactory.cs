@@ -30,7 +30,8 @@ namespace Simulation.Paddles
         {
             var entity = _world.NewEntity();
             ref var paddle = ref _world.GetPool<Paddle>().Add(entity);
-            paddle.Speed = 5f;
+            paddle.Speed = 10f;
+            paddle.YLimit = 3f;
             var x = 5f * GetNewPaddleSide();
             _paddleTriangles = new[]
             {

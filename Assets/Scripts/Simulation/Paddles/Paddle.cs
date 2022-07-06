@@ -3,5 +3,6 @@
     public struct Paddle
     {
         public float Speed;
+        public float YLimit;
     }
 }
