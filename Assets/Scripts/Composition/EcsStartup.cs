@@ -19,6 +19,7 @@ using Simulation.Physics.Systems.ForceGenerators;
 using Simulation.Physics.Systems.NarrowPhase;
 using Simulation.Physics.Systems.SolverPhase;
 using Simulation.Physics.Systems.UpdateBV;
+using Simulation.Physics.Utils;
 using UnityEngine;
 #if UNITY_EDITOR
 using Leopotam.EcsLite.UnityEditor;
@@ -143,6 +144,8 @@ namespace Composition
                 .Add(new PaddleMovementSystem())
                 ;
 
+            systems.Add(new ResetTempPosesSystem());
+
             systems
                 .AddWorld(PhysicsEventsWorld, WorldNames.Events)
                 .AddWorld(PhysicsConstraintsWorld, WorldNames.Constraints)
@@ -165,6 +168,8 @@ namespace Composition
                 .Add(new StaticDefaultContactSolver<Dynamic, Static>())
                 .Inject(new PhysicsData(_simulationConfig.DeltaTime, 1, 3, 2))
                 ;
+
+            systems.Add(new ComputeTempPosesSystem());
 
             systems
                 .DelHere<ClientInput>()

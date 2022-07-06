@@ -19,3 +19,4 @@ MonoBehaviour:
   Prefabs:
     PaddlePrefab: {fileID: 2384037497356063463, guid: 299b4efbaeb314a438c5d45bb9d926b8, type: 3}
     BallPrefab: {fileID: -5546425954247502461, guid: fabdf10f5ad560248a416fab342ecfd8, type: 3}
+    HorizontalWallPrefab: {fileID: 7166360305233194659, guid: b680699a17ccb4a46af398311cc60c85, type: 3}

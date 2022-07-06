@@ -4,5 +4,6 @@
     {
         Paddle,
         Ball,
+        HorizontalWall,
     }
 }
