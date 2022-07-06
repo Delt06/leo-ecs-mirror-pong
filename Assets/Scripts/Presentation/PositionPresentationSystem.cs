@@ -28,6 +28,10 @@ namespace Presentation
                 ref readonly var simulationState = ref _stateFilter.Pools.Inc1.Get(i);
                 foreach (var entityPosition in simulationState.Positions)
                 {
+                    if (!IsValidFloat(entityPosition.Position.x) ||
+                        !IsValidFloat(entityPosition.Position.y))
+                        continue;
+
                     var syncedEntityId = entityPosition.Id;
                     if (!_viewEntityIds.TryGetValue(syncedEntityId, out var id))
                     {
@@ -50,5 +54,7 @@ namespace Presentation
                 }
             }
         }
+
+        private bool IsValidFloat(float value) => !float.IsNaN(value) && !float.IsInfinity(value);
     }
 }
