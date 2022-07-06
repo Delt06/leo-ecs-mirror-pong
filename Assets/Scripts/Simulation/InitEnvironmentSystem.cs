@@ -12,8 +12,10 @@ namespace Simulation
         public void Init(EcsSystems systems)
         {
             var physicsObjectsFactory = _physicsObjectsFactory.Value;
-            physicsObjectsFactory.CreateSegment(new Vector2(-5, 3f), new Vector2(5, 5), 1);
-            physicsObjectsFactory.CreateSegment(new Vector2(-5, -3f), new Vector2(5, -5), 1);
+            const int x = 5;
+            const int y = 3;
+            physicsObjectsFactory.CreateSegment(new Vector2(-x, y), new Vector2(x, y), 1);
+            physicsObjectsFactory.CreateSegment(new Vector2(-x, -y), new Vector2(x, -y), 1);
         }
     }
 }

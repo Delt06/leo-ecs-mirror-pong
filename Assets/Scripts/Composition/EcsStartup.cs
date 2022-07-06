@@ -8,6 +8,7 @@ using Networking;
 using Presentation;
 using Presentation.Interpolation;
 using Simulation;
+using Simulation.Debugging;
 using Simulation.Ids;
 using Simulation.Paddles;
 using Simulation.Physics;
@@ -179,6 +180,10 @@ namespace Composition
             systems
                 .Add(new SendServerStateSystem())
                 .DelHere<SimulationState>()
+                ;
+
+            systems
+                .Add(new ShapesGizmosSystem())
                 ;
 
             systems.Inject(PhysicsObjectsFactory);
