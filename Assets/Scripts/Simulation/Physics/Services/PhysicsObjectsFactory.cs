@@ -70,16 +70,30 @@ namespace Simulation.Physics.Services
             return e;
         }
 
-        public int CreateMesh(Mesh mesh, float mass, float restitution, Vector2 position, float rotation)
+        public int CreateMesh(Mesh mesh, float mass, float restitution, Vector2 position, float rotation, int? entity = null)
         {
             var mmoi = Mesh.CalculateMMOI(mesh, mass);
 
-            var e = world.NewEntity();
+            var e = entity ?? world.NewEntity();
 
             rigidBodies.Add(e) = new RigidBody(mass, mmoi, restitution);
             poses.Add(e) = new Pose(position + mesh.MassCenter, rotation);
             velocities.Add(e);
             bodyMasks.Add(e) = new BodyMask(Mesh.Id, Dynamic.Id);
+            meshShapes.Add(e) = mesh;
+            bboxes.Add(e);
+
+            return e;
+        }
+        
+        public int CreateStaticMesh(Mesh mesh, float restitution, Vector2 position, float rotation, int? entity = null)
+        {
+            var e = entity ?? world.NewEntity();
+
+            staticBodies.Add(e).Restitution = restitution;
+            poses.Add(e) = new Pose(position + mesh.MassCenter, rotation);
+            velocities.Add(e);
+            bodyMasks.Add(e) = new BodyMask(Mesh.Id, Static.Id);
             meshShapes.Add(e) = mesh;
             bboxes.Add(e);
 

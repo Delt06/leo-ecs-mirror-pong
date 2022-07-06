@@ -2,7 +2,10 @@
 using DELTation.LeoEcsExtensions.Utilities;
 using Leopotam.EcsLite;
 using Simulation.Ids;
+using Simulation.Physics.Components;
+using Simulation.Physics.Components.Physics;
 using Simulation.Physics.Components.Physics.Shapes;
+using Simulation.Physics.Components.Physics.Tags;
 using Simulation.Physics.Services;
 
 namespace Simulation.Paddles
@@ -12,6 +15,7 @@ namespace Simulation.Paddles
         private readonly EcsFilter _paddlesFilter;
         private readonly PhysicsObjectsFactory _physicsObjectsFactory;
         private readonly EcsWorld _world;
+        private Triangle[] _paddleTriangles;
 
         public PaddleEntityFactory(EcsWorld world, PhysicsObjectsFactory physicsObjectsFactory)
         {
@@ -28,9 +32,16 @@ namespace Simulation.Paddles
             ref var paddle = ref _world.GetPool<Paddle>().Add(entity);
             paddle.Speed = 5f;
             var x = 5f * GetNewPaddleSide();
-            var a = new Vector2(x, -5f);
-            var b = new Vector2(x, 5f);
-            _physicsObjectsFactory.CreateSegment(a, b, 1f, entity);
+            _paddleTriangles = new[]
+            {
+                new Triangle(new Vector2(-0.5f, -0.5f), new Vector2(0.5f, -0.5f), new Vector2(0.5f, 0.5f)),
+                new Triangle(new Vector2(-0.5f, -0.5f), new Vector2(0.5f, 0.5f), new Vector2(-0.5f, 0.5f)),
+            };
+            var mesh = Mesh.CreateMesh(_paddleTriangles);
+            _physicsObjectsFactory.CreateStaticMesh(mesh, 1f, new Vector2(x, 0f), 0f, entity);
+
+            _world.GetPool<BodyMask>().Get(entity).TagTypeId = Static.Id;
+
             ref var ownerId = ref _world.GetPool<OwnerId>().Add(entity);
             ownerId.Id = id;
             _world.AddEntityId(entity);
@@ -39,10 +50,10 @@ namespace Simulation.Paddles
 
         private float GetNewPaddleSide()
         {
-            foreach (var i in _world.Filter<Paddle>().Inc<Segment>().End())
+            foreach (var i in _world.Filter<Paddle>().Inc<Pose>().End())
             {
-                var position = _world.GetPool<Segment>().Get(i);
-                if (position.A.X > 0)
+                var position = _world.GetPool<Pose>().Get(i);
+                if (position.Position.X > 0)
                     return -1f;
                 return 1f;
             }
