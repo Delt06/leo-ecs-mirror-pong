@@ -7,6 +7,7 @@ using Simulation.Physics.Components.Physics;
 using Simulation.Physics.Components.Physics.Shapes;
 using Simulation.Physics.Components.Physics.Tags;
 using Simulation.Physics.Services;
+using Simulation.Score;
 
 namespace Simulation.Paddles
 {
@@ -47,6 +48,7 @@ namespace Simulation.Paddles
             ownerId.Id = id;
             _world.AddEntityId(entity);
             _world.GetPool<ViewInfo>().Add(entity).Type = ViewType.Paddle;
+            _world.GetPool<PlayerScore>().Add(entity);
         }
 
         private float GetNewPaddleSide()

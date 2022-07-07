@@ -7,6 +7,7 @@ using Leopotam.EcsLite.ExtendedSystems;
 using Networking;
 using Presentation;
 using Presentation.Interpolation;
+using Presentation.Score;
 using Simulation;
 using Simulation.Debugging;
 using Simulation.Ids;
@@ -212,6 +213,7 @@ namespace Composition
                 .Add(new PositionPresentationSystem())
                 .Add(new PositionInterpolationSystem())
                 .Add(new RotationInterpolationSystem())
+                .Add(new ScoreTextPresentationSystem())
                 ;
 
             systems.DelHere<SimulationState>();
