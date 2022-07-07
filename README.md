@@ -10,5 +10,8 @@ A multiplayer Pong game.
   - [LeoECS Lite DI](https://github.com/Leopotam/ecslite-di)
 - [Mirror Networking](https://mirror-networking.com/)
 - [7Bpencil/sharpPhysics](https://github.com/7Bpencil/sharpPhysics)
+  - Embedded into the project and slightly modified.
+- [DI Framework](https://github.com/Delt06/di-framework)
+- [LeoECS Extensions](https://github.com/Delt06/leo-ecs-extensions)
 
 > The project is work in progress.
