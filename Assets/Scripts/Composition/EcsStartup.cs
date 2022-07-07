@@ -20,6 +20,7 @@ using Simulation.Physics.Systems.NarrowPhase;
 using Simulation.Physics.Systems.SolverPhase;
 using Simulation.Physics.Systems.UpdateBV;
 using Simulation.Physics.Utils;
+using Simulation.Score;
 using UnityEngine;
 #if UNITY_EDITOR
 using Leopotam.EcsLite.UnityEditor;
@@ -163,6 +164,14 @@ namespace Composition
                 .Add(new ContactTesterCircleMesh())
                 .Add(new ContactTesterCircleSegment())
                 .Add(new ContactTesterMeshSegment())
+                ;
+
+            systems
+                // contact handlers
+                .Add(new BallScoreBodyContactSystem())
+                ;
+
+            systems
                 // solver phase
                 .Add(new DynamicDefaultContactSolver<Dynamic, Dynamic>())
                 .Add(new StaticDefaultContactSolver<Dynamic, Static>())
